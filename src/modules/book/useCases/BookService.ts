@@ -13,6 +13,7 @@ import { BookModel } from "../infra/data/book_data";
 import { BookErrors } from "../domain/BookErrors";
 import { CreateBookDto } from "../dto/CreateBook";
 import { Book } from "../domain/Book";
+import { BookMap } from "../mappers/BookMap";
 
 type Response = Either<
   GenericAppError.UnexpectedError | BookErrors.BookDoesNotExist | DomainError,
@@ -40,7 +41,10 @@ export class BookService {
 
       const book = bookOrError.getValue();
 
-      const res = await this.bookRepo.create(book);
+      const data = BookMap.toPersistence(book)
+
+
+      const res = await this.bookRepo.create(data);
 
       return right(Result.ok<BookModel>(res)) as Response;
     } catch (error) {
