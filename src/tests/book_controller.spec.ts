@@ -27,7 +27,7 @@ describe("API Endpoint Tests", () => {
       .end((err, res) => {
         if (err) return done(err);
         // Add your assertions here
-        expect(res._body.props.title).toBe("New Book");
+        expect(res._body.title).toBe("New Book");
         done();
       });
   });
